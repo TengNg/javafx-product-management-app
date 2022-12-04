@@ -1,0 +1,23 @@
+AnchorPane{
+    -fx-background-color: #6D9886;
+
+}
+Label{
+    -fx-text-fill: #F7F7F7;
+}
+Button{
+    -fx-text-fill: #6D9886;
+}
+.linkChange{
+    -fx-text-fill: #F7F7F7;
+}
+.btnSignin:hover{
+    -fx-text-fill: #6DAF86;
+    -fx-cursor: hand;
+
+}
+//TextField{
+    -fx-background-color: transparent;
+    -fx-border-color: blue;
+    -fx-border-width: 0px 0px 2px 0px;
+}
