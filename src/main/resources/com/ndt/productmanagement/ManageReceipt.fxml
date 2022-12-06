@@ -12,18 +12,18 @@
     <children>
         <HBox layoutX="241.0" layoutY="100.0" prefHeight="47.0" prefWidth="547.0" spacing="30.0" AnchorPane.rightAnchor="122.0">
             <children>
-                <Button fx:id="btnCheckDetail" mnemonicParsing="false" onAction="#checkReceiptDetailHandler" prefHeight="47.0" prefWidth="138.0" text="Xem chi tiet" />
-                <Button fx:id="btnCheckReceipts" mnemonicParsing="false" onAction="#checkReceiptsHandler" prefHeight="47.0" prefWidth="134.0" text="Kiem tra" />
-            <Button fx:id="btnDeleteReceipt" mnemonicParsing="false" onAction="#deleteReceiptHandler" prefHeight="62.0" prefWidth="81.0" text="Xoa" />
+                <Button fx:id="btnCheckDetail" mnemonicParsing="false" onAction="#checkReceiptDetailHandler" prefHeight="47.0" prefWidth="138.0" text="Details" />
+                <Button fx:id="btnCheckReceipts" mnemonicParsing="false" onAction="#checkReceiptsHandler" prefHeight="47.0" prefWidth="134.0" text="Check" />
+            <Button fx:id="btnDeleteReceipt" mnemonicParsing="false" onAction="#deleteReceiptHandler" prefHeight="62.0" prefWidth="81.0" text="Delete" />
             <Button fx:id="btnReset" mnemonicParsing="false" onAction="#reset" prefHeight="47.0" prefWidth="74.0" text="Reset" />
             </children>
         </HBox>
-        <Label alignment="CENTER" layoutX="46.0" layoutY="14.0" prefHeight="47.0" prefWidth="809.0" text="Quan ly san pham" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="14.0">
+        <Label alignment="CENTER" layoutX="46.0" layoutY="14.0" prefHeight="47.0" prefWidth="809.0" text="Receipt management" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="14.0">
             <font>
                 <Font size="33.0" />
             </font>
         </Label>
-        <TitledPane animated="false" collapsible="false" layoutX="46.0" layoutY="175.0" prefHeight="423.0" prefWidth="809.0" text="Thong tin chung" AnchorPane.bottomAnchor="137.0" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="175.0">
+        <TitledPane animated="false" collapsible="false" layoutX="46.0" layoutY="175.0" prefHeight="503.0" prefWidth="809.0" text="Information" AnchorPane.bottomAnchor="57.0" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="175.0">
             <content>
                 <TableView fx:id="tbReceipt" editable="true" prefHeight="200.0" prefWidth="200.0">
                     <columns>

@@ -31,7 +31,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Ten san pham" />
+                  <Label text="Name" />
                   <TextField fx:id="txtName" prefHeight="25.0" prefWidth="175.0" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets right="40.0" />
@@ -48,8 +48,8 @@
                         <Insets right="40.0" />
                      </GridPane.margin>
                   </TextField>
-                  <Label layoutX="20.0" layoutY="97.0" text="Don gia" GridPane.rowIndex="2" />
-                  <Label text="Loai san pham" GridPane.columnIndex="2" />
+                  <Label layoutX="20.0" layoutY="97.0" text="Unit price" GridPane.rowIndex="2" />
+                  <Label text="Categories" GridPane.columnIndex="2" />
                   <ComboBox fx:id="cbCategory" prefHeight="25.0" prefWidth="262.0" GridPane.columnIndex="3" />
                </children>
             </GridPane>
@@ -57,18 +57,18 @@
       </TitledPane>
       <HBox layoutX="333.0" layoutY="307.0" prefHeight="47.0" prefWidth="522.0" spacing="30.0" AnchorPane.rightAnchor="55.0">
          <children>
-            <Button fx:id="btnInsertProd" mnemonicParsing="false" onAction="#addProductHandler" prefHeight="62.0" prefWidth="81.0" text="Them" />
-            <Button fx:id="btnUpdateProd" mnemonicParsing="false" onAction="#updateProductHandler" prefHeight="62.0" prefWidth="81.0" text="Sua" />
-            <Button fx:id="btnSelectProd" mnemonicParsing="false" onAction="#selectProductHandler" prefHeight="47.0" prefWidth="76.0" text="Chon" />
-            <Button fx:id="btnDeleteProd" mnemonicParsing="false" onAction="#deleteProductHandler" prefHeight="62.0" prefWidth="81.0" text="Xoa" />
+            <Button fx:id="btnInsertProd" mnemonicParsing="false" onAction="#addProductHandler" prefHeight="62.0" prefWidth="81.0" text="Add" />
+            <Button fx:id="btnUpdateProd" mnemonicParsing="false" onAction="#updateProductHandler" prefHeight="62.0" prefWidth="81.0" text="Edit" />
+            <Button fx:id="btnSelectProd" mnemonicParsing="false" onAction="#selectProductHandler" prefHeight="47.0" prefWidth="76.0" text="Select" />
+            <Button fx:id="btnDeleteProd" mnemonicParsing="false" onAction="#deleteProductHandler" prefHeight="62.0" prefWidth="81.0" text="Delete" />
          </children>
       </HBox>
-      <Label alignment="CENTER" layoutX="46.0" layoutY="14.0" prefHeight="47.0" prefWidth="809.0" text="Quan ly san pham" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="14.0">
+      <Label alignment="CENTER" layoutX="46.0" layoutY="14.0" prefHeight="47.0" prefWidth="809.0" text="Product management" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="14.0">
          <font>
             <Font size="33.0" />
          </font>
       </Label>
-      <TitledPane animated="false" collapsible="false" layoutX="46.0" layoutY="368.0" prefHeight="312.0" prefWidth="809.0" text="Thong tin chung" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="368.0">
+      <TitledPane animated="false" collapsible="false" layoutX="46.0" layoutY="368.0" prefHeight="312.0" prefWidth="809.0" text="Information" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="368.0">
          <content>
             <TableView fx:id="tbProduct" editable="true" prefHeight="200.0" prefWidth="200.0">
               <columns>

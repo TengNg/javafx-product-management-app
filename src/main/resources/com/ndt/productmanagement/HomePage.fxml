@@ -10,7 +10,7 @@
    <children>
       <VBox layoutX="42.0" layoutY="24.0" prefHeight="65.0" prefWidth="516.0">
          <children>
-            <Label alignment="CENTER" prefHeight="54.0" prefWidth="520.0" text="Argent management">
+            <Label alignment="CENTER" prefHeight="54.0" prefWidth="520.0" text="Agent management">
                <font>
                   <Font name="Tahoma" size="44.0" />
                </font>
@@ -19,10 +19,10 @@
       </VBox>
       <VBox layoutX="130.0" layoutY="132.0" prefHeight="227.0" prefWidth="340.0" spacing="20.0">
          <children>
-            <Button fx:id="btnMcustomer" mnemonicParsing="false" onAction="#switchToCustomerView" prefHeight="41.0" prefWidth="342.0" text="Xem danh sach khach hang" />
-            <Button fx:id="btnMproduct" mnemonicParsing="false" onAction="#switchManageProduct" prefHeight="41.0" prefWidth="342.0" text="Quan ly san pham" />
-            <Button fx:id="btnMreceipt" mnemonicParsing="false" onAction="#switchToReceiptView" prefHeight="41.0" prefWidth="342.0" text="Quan ly hoa don" />
-            <Button fx:id="btnStatistic" mnemonicParsing="false" onAction="#switchToStatisticView" prefHeight="41.0" prefWidth="342.0" text="Thong ke" />
+            <Button fx:id="btnMcustomer" mnemonicParsing="false" onAction="#switchToCustomerView" prefHeight="41.0" prefWidth="342.0" text="Customer information" />
+            <Button fx:id="btnMproduct" mnemonicParsing="false" onAction="#switchManageProduct" prefHeight="41.0" prefWidth="342.0" text="Product management" />
+            <Button fx:id="btnMreceipt" mnemonicParsing="false" onAction="#switchToReceiptView" prefHeight="41.0" prefWidth="342.0" text="Receipt management" />
+            <Button fx:id="btnStatistic" mnemonicParsing="false" onAction="#switchToStatisticView" prefHeight="41.0" prefWidth="342.0" text="Statistics" />
          </children>
       </VBox>
       <Button fx:id="btnPrevious" layoutX="16.0" layoutY="359.0" mnemonicParsing="false" onAction="#previousPage" text="Previous" />
