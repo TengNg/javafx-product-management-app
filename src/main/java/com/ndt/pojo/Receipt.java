@@ -6,7 +6,6 @@ public class Receipt {
     private int receiptId;
     private int customerId;
     private boolean isValid;
-
     private String status;
 
     public Receipt(int receiptId, int customerId) {

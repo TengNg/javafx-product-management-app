@@ -1,7 +1,6 @@
 package com.ndt.services;
 
 import com.ndt.config.JdbcUtils;
-import com.ndt.pojo.Category;
 import com.ndt.pojo.Customer;
 
 import java.sql.Connection;

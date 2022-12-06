@@ -2,7 +2,6 @@ package com.ndt.services;
 
 import com.ndt.config.JdbcUtils;
 import com.ndt.pojo.Product;
-import com.ndt.pojo.Receipt;
 import com.ndt.pojo.ReceiptDetail;
 
 import java.sql.*;
@@ -78,5 +77,15 @@ public class ReceiptDetailService {
         stm.setInt(2, receiptId);
         stm.setString(3, productId);
         stm.executeUpdate();
+    }
+
+    public double calculateTotalPrice(int id) throws SQLException {
+        double result = 0;
+
+        for (ReceiptDetail r : this.getReceiptDetailsById(id)) {
+            result += r.getQuantity() * r.getProduct().getPrice();
+        }
+
+        return result;
     }
 }

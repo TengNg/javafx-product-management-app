@@ -39,12 +39,15 @@ public class StatisticService {
     }
 
     public List<Table2> getTopCustomers() throws SQLException {
+
+        // ===> Check sql <===
+
         String sql = """
-                SELECT c.*, count(customer_id)
+                SELECT c.id, c.name, c.age, c.gender, count(r.customer_id)
                 FROM receipts r
                 LEFT JOIN customers c on r.customer_id = c.id
-                GROUP BY customer_id
-                ORDER BY count(customer_id) desc
+                GROUP BY r.customer_id
+                ORDER BY count(r.customer_id) desc
                 LIMIT 10""";
 
         Connection conn = JdbcUtils.getConn();

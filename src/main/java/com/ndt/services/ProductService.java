@@ -52,9 +52,8 @@ public class ProductService {
             stm.execute();
             return true;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            return false;
         }
-        return false;
     }
 
     public boolean updateProduct(Product p) {

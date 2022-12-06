@@ -52,7 +52,7 @@ public class ReceiptService {
         stm2.execute();
     }
 
-    public List<Receipt> updateReceipts() throws SQLException {
+    public List<Receipt> checkReceipts() throws SQLException {
         ProductService productService = new ProductService();
         ReceiptDetailService receiptDetailService = new ReceiptDetailService();
 
@@ -63,6 +63,16 @@ public class ReceiptService {
 
             int receiptId = receipt.getReceiptId();
             List<ReceiptDetail> details = receiptDetailService.getReceiptDetailsById(receiptId);
+
+            // if receipt is empty
+            if (details.size() == 0) {
+                receipt.setStatus("Invalid");
+                receipt.setValid(false);
+                this.updateStatus(receiptId, "Invalid");
+                this.updateIsValid(receiptId, false);
+                result.add(receipt);
+                continue;
+            }
 
             for (ReceiptDetail r : details) {
                 String productId = r.getProduct().getId();
@@ -124,7 +134,6 @@ public class ReceiptService {
     }
 
     public void reset() throws SQLException {
-        ReceiptService receiptService = new ReceiptService();
         ReceiptDetailService receiptDetailService = new ReceiptDetailService();
         ProductService productService = new ProductService();
 
@@ -134,6 +143,7 @@ public class ReceiptService {
 
             if (receipt.getStatus().equals("Invalid")) {
                 this.updateStatus(receipt.getReceiptId(), "Unchecked");
+                this.updateIsValid(receipt.getReceiptId(), true);
                 continue;
             }
 
@@ -150,8 +160,8 @@ public class ReceiptService {
                 productService.updateProductQuantityById(productId, changedValue);
             }
 
-            receiptService.updateIsValid(receipt.getReceiptId(), true);
-            receiptService.updateStatus(receipt.getReceiptId(), "Unchecked");
+            this.updateIsValid(receipt.getReceiptId(), true);
+            this.updateStatus(receipt.getReceiptId(), "Unchecked");
         }
     }
 }

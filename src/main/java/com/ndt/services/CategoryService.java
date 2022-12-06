@@ -23,4 +23,16 @@ public class CategoryService {
         }
         return categories;
     }
+
+    public String getCategoryNameById (int id) throws SQLException {
+        Connection conn = JdbcUtils.getConn();
+        String query = "SELECT * FROM categories WHERE id = " + id;
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery(query);
+        String result = "";
+        while (rs.next()) {
+            result = rs.getString(2);
+        }
+        return result;
+    }
 }

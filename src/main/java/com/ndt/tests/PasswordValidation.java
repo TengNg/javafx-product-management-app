@@ -1,7 +1,6 @@
 package com.ndt.tests;
 
 public class PasswordValidation {
-
     public static boolean isPasswordValid(String password) {
         // (?=.*[0-9]) ==> a digit must occur at least once
         // (?=.*[a-z]) ==> a lower case character must occur at least once

@@ -4,12 +4,12 @@ import com.ndt.config.JdbcUtils;
 import com.ndt.pojo.ReceiptDetail;
 import com.ndt.services.ReceiptDetailService;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ReceiptDetailTest {
@@ -36,4 +36,11 @@ public class ReceiptDetailTest {
         Set<ReceiptDetail> set = new HashSet<>(receiptDetailService.getReceiptDetails());
         Assertions.assertEquals(set.size(), receiptDetailService.getReceiptDetails().size());
     }
+
+    @ParameterizedTest
+    @CsvSource({"1,2", "2,1", "3,2", "4,0"})
+    public void checkUniqueReceiptDetailById(int receiptId, int nReceitDetail) throws SQLException {
+        Assertions.assertEquals(receiptDetailService.getReceiptDetailsById(receiptId).size(), nReceitDetail);
+    }
+
 }

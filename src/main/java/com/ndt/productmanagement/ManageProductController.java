@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.UUID;
@@ -73,6 +74,13 @@ public class ManageProductController implements Initializable {
         }
     }
 
+    public void clearingFields() {
+        txtName.setText("");
+        txtPrice.setText("");
+        txtQuantity.setText("");
+        cbCategory.getSelectionModel().clearSelection();
+    }
+
     public void addProductHandler() {
         try {
             if (txtName.getText() == null
@@ -103,7 +111,8 @@ public class ManageProductController implements Initializable {
             ProductService productService = new ProductService();
             productService.addProduct(p);
             this.tbProduct.setItems(FXCollections.observableList(productService.getProducts()));
-        } catch (Exception e) {
+            this.clearingFields();
+        } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Nhap thong tin sai dinh dang");
             alert.setContentText("Vui long nhap lai");
@@ -113,43 +122,47 @@ public class ManageProductController implements Initializable {
         }
     }
 
-    public void deleteProductHandler(ActionEvent event) {
+    public void deleteProductHandler(ActionEvent event) throws SQLException {
         ObservableList<Product> productList = tbProduct.getItems();
         if(productList.isEmpty()){
             EnvironmentController evm = new EnvironmentController();
             evm.noti(event, "Table is empty!!");
+            return;
         }
-        else if(tbProduct.getSelectionModel().getSelectedItem() == null){
+        if(tbProduct.getSelectionModel().getSelectedItem() == null){
             EnvironmentController evm = new EnvironmentController();
             evm.noti(event, "Please choose row to delete");
+            return;
         }
-        else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Confirm");
-            alert.setContentText("Do you want to delete this row");
-            alert.setHeaderText("Delete row?");
-            ButtonType buttonTypeYes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-            alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeCancel);
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == buttonTypeYes) {
-                try {
-                    Product selectedItem = tbProduct.getSelectionModel().getSelectedItem();
-                    String id = selectedItem.getId();
-                    ProductService productService = new ProductService();
-                    productService.deleteProduct(id);
-                    this.tbProduct.setItems(FXCollections.observableList(productService.getProducts()));
-                } catch (Exception e) {
-                    alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Loi xoa san pham");
-                    alert.setContentText("San pham ton tai trong don hang khac");
-                    ButtonType okBtn = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-                    alert.getButtonTypes().setAll(okBtn);
-                    alert.showAndWait();
-                    return;
-                }
-            }
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Confirm");
+        alert.setContentText("Do you want to delete this row");
+        alert.setHeaderText("Delete row?");
+        ButtonType buttonTypeYes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeCancel);
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() != buttonTypeYes) {
+            return;
         }
+
+        Product selectedItem = tbProduct.getSelectionModel().getSelectedItem();
+        String id = selectedItem.getId();
+        ProductService productService = new ProductService();
+
+        if (productService.deleteProduct(id)) {
+            this.tbProduct.setItems(FXCollections.observableList(productService.getProducts()));
+            return;
+        }
+
+        alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Loi xoa san pham");
+        alert.setContentText("San pham ton tai trong don hang khac");
+        ButtonType okBtn = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        alert.getButtonTypes().setAll(okBtn);
+        alert.showAndWait();
     }
 
     public void updateProductHandler(ActionEvent event) {
@@ -164,6 +177,7 @@ public class ManageProductController implements Initializable {
             ProductService productService = new ProductService();
             productService.updateProduct(p);
             this.tbProduct.setItems(FXCollections.observableList(productService.getProducts()));
+            this.clearingFields();
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Nhap thong tin sai dinh dang");
@@ -200,7 +214,7 @@ public class ManageProductController implements Initializable {
         col3.setPrefWidth(100);
 
         TableColumn col4 = new TableColumn("Category");
-        col4.setCellValueFactory(new PropertyValueFactory("categoryId"));
+        col4.setCellValueFactory(new PropertyValueFactory("category"));
         col4.setPrefWidth(100);
 
         TableColumn col5 = new TableColumn("Quantity");

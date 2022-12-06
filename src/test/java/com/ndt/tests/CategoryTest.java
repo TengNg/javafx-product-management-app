@@ -3,7 +3,10 @@ package com.ndt.tests;
 import com.ndt.config.JdbcUtils;
 import com.ndt.config.JdbcUtils;
 import com.ndt.pojo.Category;
+import com.ndt.services.CategoryService;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,6 +19,8 @@ import java.util.Set;
 
 public class CategoryTest {
     private static Connection conn;
+
+    private static CategoryService categoryService = new CategoryService();
 
     @BeforeAll
     public static void beforeAll() throws SQLException {
@@ -33,15 +38,17 @@ public class CategoryTest {
     @Tag("important")
     @DisplayName("Is getting unique categories")
     public void checkUniqueCategories() throws SQLException {
-        String query = "SELECT * FROM categories";
-        Statement stm = conn.createStatement();
-        ResultSet rs = stm.executeQuery(query);
-        List<String> categories = new ArrayList<>();
-        while (rs.next()) {
-            String name = rs.getString(2);
-            categories.add(name);
-        }
-        Set<String> set = new HashSet<>(categories);
+        List<Integer> categories = new ArrayList<>();
+        for (Category c : categoryService.getCategories())
+            categories.add(c.getId());
+        Set<Integer> set = new HashSet<>(categories);
         Assertions.assertEquals(set.size(), categories.size());
+    }
+
+    @ParameterizedTest
+    @DisplayName("Checking correct product's quantity in each category")
+    @CsvSource({"1,A", "2,B", "3,C", "4,D", "5,E"}) // [<CategoryId>,<CategoryName>]
+    public void isGettingCorrectCategoryNameWithId(int id, String name) throws SQLException {
+        Assertions.assertEquals(categoryService.getCategoryNameById(id), name);
     }
 }

@@ -1,5 +1,10 @@
 package com.ndt.pojo;
 
+import com.ndt.services.CategoryService;
+import com.ndt.services.ProductService;
+
+import java.sql.SQLException;
+
 public class Product {
     private String id; // UUID
     private String name;
@@ -7,11 +12,12 @@ public class Product {
     private int categoryId;
     private int quantity;
 
-    public Product(String id, String name, double price, int categoryId) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.categoryId = categoryId;
+    public Product(Product other) {
+        this.id = other.getId();
+        this.name = other.getName();
+        this.price = other.getPrice();
+        this.categoryId = other.getCategoryId();
+        this.quantity = other.getQuantity();
     }
 
     public Product(String id, String name, double price, int categoryId, int quantity) {
@@ -61,6 +67,12 @@ public class Product {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public String getCategory() throws SQLException {
+        CategoryService categoryService = new CategoryService();
+        return categoryService.getCategoryNameById(this.categoryId);
+    }
+
 
     @Override
     public String toString() {

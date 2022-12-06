@@ -100,17 +100,25 @@ public class ManageReceiptController implements Initializable {
         }
 
         ReceiptDetailService receiptDetailsService = new ReceiptDetailService();
+        int receiptId = selectedReceipt.getReceiptId();
         StringBuilder str = new StringBuilder();
 
-        for (ReceiptDetail p : receiptDetailsService.getReceiptDetailsById(selectedReceipt.getReceiptId())) {
-            str.append(" - Ma san pham: " + p.getProduct().getId() + "\n");
-            str.append(" - Ten san pham: " + p.getProduct().getName() + "\n");
-            str.append(" - Gia san pham: " + p.getProduct().getPrice() + "\n");
-            str.append(" - Loai san pham: " + p.getProduct().getCategoryId() + "\n");
-            str.append(" - So luong: " + p.getQuantity() + "\n");
-            if (!p.getIsOk())
-                str.append(" => * Het hang *\n");
-            str.append("\n");
+        List<ReceiptDetail> receiptDetails = receiptDetailsService.getReceiptDetailsById(selectedReceipt.getReceiptId());
+
+        if (receiptDetails.size() > 0) {
+            for (ReceiptDetail p : receiptDetails) {
+                str.append(" - Ma san pham: " + p.getProduct().getId() + "\n");
+                str.append(" - Ten san pham: " + p.getProduct().getName() + "\n");
+                str.append(" - Gia san pham: " + p.getProduct().getPrice() + "\n");
+                str.append(" - Loai san pham: " + p.getProduct().getCategoryId() + "\n");
+                str.append(" - So luong: " + p.getQuantity() + "\n");
+                if (!p.getIsOk())
+                    str.append(" => * Het hang *\n");
+                str.append(" ======================================= \n");
+            }
+            str.append("\n ===> Tong so tien: " + String.valueOf(receiptDetailsService.calculateTotalPrice(receiptId)) + "\n");
+        } else {
+            str.append("<< Empty >>");
         }
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -161,7 +169,7 @@ public class ManageReceiptController implements Initializable {
             alert.showAndWait();
             return;
         }
-        this.tbReceipt.setItems(FXCollections.observableList(this.receiptService.updateReceipts()));
+        this.tbReceipt.setItems(FXCollections.observableList(this.receiptService.checkReceipts()));
         this.tbReceipt.refresh();
     }
 

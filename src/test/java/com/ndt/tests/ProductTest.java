@@ -56,7 +56,7 @@ public class ProductTest {
 
     @Test
     @DisplayName("Is getting correct product by product id")
-    public void isGettingCorrectProductById() throws SQLException {
+    public void checkIsGettingCorrectProductById() throws SQLException {
         Product real = productService.getProductById("3c2c3a2f-4b64-46a0-88cb-00e67b2ddf18");
         Product expected1 = new Product(
                 "3c2c3a2f-4b64-46a0-88cb-00e67b2ddf18",
@@ -74,8 +74,8 @@ public class ProductTest {
                 20
         );
 
-        Assertions.assertTrue(real.equals(expected1));
-        Assertions.assertFalse(real.equals(expected2));
+        Assertions.assertEquals(real, expected1);
+        Assertions.assertNotEquals(real, expected2);
     }
 
     @ParameterizedTest
@@ -86,13 +86,29 @@ public class ProductTest {
     }
 
     @Test
-    @DisplayName("Is product added / deleted")
-    public void isProductAdded() throws SQLException {
-        Assertions.assertTrue(productService.addProduct(this.testingProduct));
-        this.isProductDeleted();
+    @DisplayName("Checking product CRUD method")
+    public void checkCUD() throws SQLException {
+        int currentSize = productService.getProducts().size();
+        Assertions.assertTrue(this.isProductAdded());
+
+        Product currentProduct = this.testingProduct;
+        Product updatedProduct = new Product(this.testingProduct);
+        updatedProduct.setName("new testing product");
+
+        Assertions.assertTrue(this.isProductUpdated(updatedProduct));
+        Assertions.assertNotEquals(currentProduct, updatedProduct);
+        Assertions.assertEquals(productService.getProductById(this.testingProduct.getId()), updatedProduct);
+
+        Assertions.assertTrue(this.isProductDeleted());
+        int changedSize = productService.getProducts().size();
+        Assertions.assertEquals(currentSize, changedSize);
     }
 
-    public void isProductDeleted() throws SQLException {
-        Assertions.assertTrue(productService.deleteProduct("3c2c3a2f-4b64-46a0-88cb-00e67b2ddf18"));
+    public boolean isProductAdded() {
+        return productService.addProduct(this.testingProduct);
     }
+
+    public boolean isProductDeleted() throws SQLException { return productService.deleteProduct(this.testingProduct.getId()); }
+
+    public boolean isProductUpdated(Product p) throws SQLException { return productService.updateProduct(p); }
 }
