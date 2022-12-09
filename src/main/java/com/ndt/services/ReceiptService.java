@@ -163,5 +163,7 @@ public class ReceiptService {
             this.updateIsValid(receipt.getReceiptId(), true);
             this.updateStatus(receipt.getReceiptId(), "Unchecked");
         }
+
+        receiptDetailService.updateAllReceiptDetailsIsOkStatus();
     }
 }

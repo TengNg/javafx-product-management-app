@@ -26,7 +26,7 @@
          </content>
       </TitledPane>
 
-      <TitledPane animated="false" collapsible="false" layoutX="46.0" layoutY="368.0" prefHeight="312.0" prefWidth="809.0" style="-fx-padding: 8;" text="Thông tin phân loại sản phẩm">
+      <TitledPane animated="false" collapsible="false" layoutX="46.0" layoutY="368.0" prefHeight="312.0" prefWidth="809.0" style="-fx-padding: 8;" text="Thông tin số lượng sản phẩm theo loại">
          <content>
             <TableView fx:id="tbProductFreq" editable="true" prefHeight="200.0" prefWidth="200.0">
                <columns>

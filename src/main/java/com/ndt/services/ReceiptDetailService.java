@@ -79,6 +79,13 @@ public class ReceiptDetailService {
         stm.executeUpdate();
     }
 
+    public void updateAllReceiptDetailsIsOkStatus() throws SQLException {
+        Connection conn = JdbcUtils.getConn();
+        String sql = "UPDATE receipt_details set is_ok=1";
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.executeUpdate();
+    }
+
     public double calculateTotalPrice(int id) throws SQLException {
         double result = 0;
 

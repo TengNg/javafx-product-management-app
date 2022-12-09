@@ -1,5 +1,9 @@
 package com.ndt.pojo.statistic;
 
+import com.ndt.services.CategoryService;
+
+import java.sql.SQLException;
+
 public class Table3 {
     private int categoryId;
     private String productId;
@@ -43,6 +47,11 @@ public class Table3 {
 
     public void setFrequency(int frequency) {
         this.frequency = frequency;
+    }
+
+    public String getCategory() throws SQLException {
+        CategoryService categoryService = new CategoryService();
+        return categoryService.getCategoryNameById(this.categoryId);
     }
 
     @Override

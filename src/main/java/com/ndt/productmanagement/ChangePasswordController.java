@@ -51,7 +51,8 @@ public class ChangePasswordController implements Initializable {
         else{
             String currentPassword = txtNewPassword.getText();
             if (!isPasswordValid(currentPassword)) {
-                System.out.println("Mat khau khong hop le");
+                EnvironmentController evm = new EnvironmentController();
+                evm.noti(event,"Mat khau khong hop le");
                 return;
             }
             LoginController.passwordChanged = currentPassword;

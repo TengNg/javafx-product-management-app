@@ -1,18 +1,13 @@
 package com.ndt.tests;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 public class PasswordValidationTest {
-    @Test
-    public void passwordValidation() {
-        String pwd1 = "aaZZa44@1";
-        String pwd2 = "abcdasdf";
-        String pwd3 = "abcd1234";
-        String pwd4 = "Abcd@123";
-        Assertions.assertTrue(PasswordValidation.isPasswordValid(pwd1));
-        Assertions.assertFalse(PasswordValidation.isPasswordValid(pwd2));
-        Assertions.assertFalse(PasswordValidation.isPasswordValid(pwd3));
-        Assertions.assertTrue(PasswordValidation.isPasswordValid(pwd4));
+    @ParameterizedTest
+    @CsvSource({"aaZZa44@1, true", "abcdasdf, false", "abcd1234, false", "Abcd@123, true"})
+    public void passwordValidation(String password, boolean isValid) {
+        Assertions.assertEquals(PasswordValidation.isPasswordValid(password), isValid);
     }
 }

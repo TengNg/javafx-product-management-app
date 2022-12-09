@@ -88,8 +88,8 @@ public class StatisticInformationController implements Initializable {
     }
 
     public void loadTable3View() {
-        TableColumn col1 = new TableColumn("Category Id");
-        col1.setCellValueFactory(new PropertyValueFactory("categoryId"));
+        TableColumn col1 = new TableColumn("Category");
+        col1.setCellValueFactory(new PropertyValueFactory("category"));
         col1.setPrefWidth(200);
 
         TableColumn col2 = new TableColumn("ProductId");
